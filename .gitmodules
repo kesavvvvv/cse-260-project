@@ -1,0 +1,3 @@
+[submodule "flame-fitting"]
+	path = flame-fitting
+	url = https://github.com/28utkarsh/flame-fitting.git
