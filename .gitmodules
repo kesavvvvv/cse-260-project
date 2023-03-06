@@ -1,3 +1,6 @@
 [submodule "flame-fitting"]
 	path = flame-fitting
 	url = https://github.com/28utkarsh/flame-fitting.git
+[submodule "DECA"]
+	path = DECA
+	url = https://github.com/28utkarsh/DECA.git
