@@ -1,11 +1,28 @@
 """
 Command to run this file:
-python3 convert_pp_to_numpy_landmarks.py <path_to_the_input_pp_file>
+python3 convert_pp_to_numpy_landmarks.py \
+    --pp_directory <path_to_pp_landmarks_directory_files> \
+    --npy_directory <path_to_npy_output_directory>
 """
 import numpy as np
 import os
-import sys
 import xml.etree.ElementTree as ET
+import argparse
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Script to convert the PP landmarks to npy")
+    parser.add_argument('--pp_directory', '-pp', required=True,
+                        help="Path to the input pp files directory")
+    parser.add_argument('--npy_directory', '-nd', required=True,
+                        help="Path to store the npy output files")
+    args = parser.parse_args()
+    if not os.path.exists(args.pp_directory):
+        raise RuntimeError("PP directory is missing")
+    if os.path.exists(args.npy_directory):
+        raise RuntimeError("Output npy files directory already exists!")
+    os.makedirs(args.npy_directory)
+
+    return args
 
 class XML_to_Numpy_Converter():
     def __init__(self, xml_file_path):
@@ -25,6 +42,10 @@ class XML_to_Numpy_Converter():
         return final_result
 
 if __name__ == "__main__":
-    input_file_path = sys.argv[1]
-    output_file_path = os.path.split(input_file_path)[1]
-    np.save(output_file_path, XML_to_Numpy_Converter(input_file_path).get_coords())
+    args = parse_args()
+    pp_files = [filename for filename in os.listdir(args.pp_directory) if os.path.splitext(filename)[1] == '.pp']
+    for filename in pp_files:
+        input_file_path = os.path.join(args.pp_directory, filename)
+        output_filename = os.path.splitext(filename)[0]
+        output_file_path = os.path.join(args.npy_directory, output_filename)
+        np.save(output_file_path, XML_to_Numpy_Converter(input_file_path).get_coords())
