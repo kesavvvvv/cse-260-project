@@ -4,3 +4,6 @@
 [submodule "DECA"]
 	path = DECA
 	url = https://github.com/28utkarsh/DECA.git
+[submodule "3d-face-reconstruction-from-iphone-true-depth"]
+	path = 3d-face-reconstruction-from-iphone-true-depth
+	url = https://github.com/kesavvvvv/3d-face-reconstruction-from-iphone-true-depth
