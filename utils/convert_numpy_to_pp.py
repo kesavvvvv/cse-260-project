@@ -36,7 +36,7 @@ point_format =  '<point x="{}" y="{}" z="{}" active="1" name="{}"/>'
 args = parse_args()
 
 all_files = [filename for filename in os.listdir(args.npy_directory)
-                if os.path.splitext(filename)[1] == '.npy']
+                if os.path.splitext(filename)[1] == '.npy' and os.path.splitext(filename)[0]=="kpt7"]
 for filename in all_files:
     filepath = os.path.join(args.npy_directory, filename)
     pp_out_file_path = os.path.join(args.pp_directory, os.path.splitext(filename)[0] + '.pp')
